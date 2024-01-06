@@ -1,19 +1,38 @@
-const { glob } = require("glob")
 const path = require("path")
 const StaticSiteGeneratorPlugin = require("static-site-generator-webpack-plugin")
 
-data = {
-    routes: glob("./src/pages/**/[a-z[]*.tsx")
-}
 
 module.exports = {
     mode: "development",
-    entry: "./src/main.tsx", // <-- NEW
+    entry: "./src/main.tsx", // <-- NE
     output: {
-        filename: "bundle.js"
+        publicPath: 'dist',
+        chunkFilename: "js/[name].[hash].js",
+        filename: "js/[name].js",
     },
     module: {
         rules: [
+            {
+                test: /\.(png|jpg|jpeg|gif)$/i, // Ładuje obrazy
+                type: 'asset/resource',
+                generator: {
+                    filename: 'images/[name][ext]', // Katalog dla czcionek
+                },
+            },
+            {
+                test: /\.svg$/, // Ładuje pliki SVG
+                loader: 'svg-inline-loader',
+                generator: {
+                    filename: 'svg/[name][ext]', // Katalog dla czcionek
+                },
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'fonts/[name][ext]', // Katalog dla czcionek
+                },
+            },
             {
                 test: /\.css$/i,
                 include: path.resolve(__dirname, 'src'),
@@ -31,14 +50,12 @@ module.exports = {
         modules: [__dirname, "src", "node_modules"],
         extensions: ["*", ".js", ".jsx", ".tsx", ".ts"],
     },
-    // plugins: [
-    //     new StaticSiteGeneratorPlugin('bundle.js', data.routes, data)
-    // ],
+
     devServer: {
         historyApiFallback: {
             index: 'index.html'
         },
-        static: path.join(__dirname, 'dist'),
+        static: path.join(__dirname, 'hosting'),
 
         compress: true,
         port: 9000

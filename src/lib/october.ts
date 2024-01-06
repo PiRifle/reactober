@@ -8,8 +8,12 @@ export function backendData(strings: TemplateStringsArray, ...params:any[]){
     return connectArraysAlternately(strings as unknown as string[], params).join("")
 }
 
+export function html(strings: TemplateStringsArray, ...params:any[]){
+  return connectArraysAlternately(strings as unknown as string[], params).join("")
+}
+
 export function getBackendData<T={}>(){
-    return ("_pagedata" in Object.keys(window) ? (window as any)._pagedata : {}) as T
+    return ( Object.keys(window).includes("_pagedata") ? (window as any)._pagedata : {}) as T
 }
 
 function connectArraysAlternately(a: any[], b: any[]) {

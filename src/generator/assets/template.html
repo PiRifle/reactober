@@ -1,0 +1,34 @@
+&(__OC_METADATA__)
+
+==
+function generate_backend_data(){
+    &(__OC_BACKEND__)
+}
+
+function onStart(){
+
+    $b_data = $this->generate_backend_data();
+    
+    if(!is_null($b_data)){
+        $this["__site_data"] = json_encode($b_data);
+    }else{
+        $this["__site_data"] = "{}";
+    }
+}
+
+==
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>window._pagedata=JSON.parse('{{__site_data|raw}}')</script>
+    &(__HEADER_DATA__)
+</head>
+<body>
+    <div id="root"></div>
+    <script src="{{ ['assets/js/main.js']|theme }}?v=(PROJECT_VERSION_VALUE)"></script>
+</body>
+</html>
