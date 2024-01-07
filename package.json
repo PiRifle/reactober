@@ -1,6 +1,11 @@
 {
   "name": "reactober",
   "version": "1.0.0",
+  "scripts": {
+    "serve": "webpack serve",
+    "watch": "ts-node src/generator/watch.ts",
+    "build": "ts-node src/generator/index.ts"
+  },
   "license": "MIT",
   "tscheck": "tsc",
   "dependencies": {
@@ -9,6 +14,7 @@
     "@babel/preset-env": "^7.23.7",
     "@babel/preset-react": "^7.23.3",
     "@babel/preset-typescript": "^7.23.3",
+    "@types/chokidar": "^2.1.3",
     "@types/glob": "^8.1.0",
     "@types/node": "^20.10.6",
     "@types/react": "^18.2.46",

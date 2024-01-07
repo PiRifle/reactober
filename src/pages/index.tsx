@@ -22,6 +22,7 @@ export default function Post() {
         <div className="bold font-2xl">
             <h1>Name: {data.name}</h1>
             <span>Hi! Im {data.age} years old and im from {data.city} </span>
+            chipi chapa
             <a href="with_id/23">check out my cat post</a>
         </div>
     </div>

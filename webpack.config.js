@@ -7,7 +7,7 @@ module.exports = {
     entry: "./src/main.tsx", // <-- NE
     output: {
         publicPath: 'dist',
-        chunkFilename: "js/[name].[hash].js",
+        chunkFilename: "js/[name].[chunkhash].js",
         filename: "js/[name].js",
     },
     module: {
