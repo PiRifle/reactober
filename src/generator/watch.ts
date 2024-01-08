@@ -23,7 +23,7 @@ async function main(){
         createFileWithFolders(join(themeExportPath, "pages", outputPath.replace("[", 'PATHPARAM__').replace("]", '__')), content)
     });
 
-    webpack({...config as any, ...{output: {path: join(resolve(themeExportPath), "assets"), chunkFilename: "js/[name].[chunkhash].js", filename: "js/[name].js", publicPath: "/themes/base/assets/"}}, mode: "production", watch: true}, (error, stats)=>{
+    webpack({...config as any, ...{output: {path: join(resolve(themeExportPath), "assets"), chunkFilename: "js/[name].[chunkhash].js", filename: "js/[name].js", publicPath: "/themes/base/assets/"}}, mode: "production", plugins: [], watch: true}, (error, stats)=>{
         const message = `+++\nBuild successful!\nTime: ${stats.endTime - stats.startTime} ms\nHash: ${stats.hash}\nVersion: ${webpack.version}\n${stats.toString()}`;
 
         console.log(message);

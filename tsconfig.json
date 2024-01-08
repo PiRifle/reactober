@@ -2,7 +2,9 @@
   "compilerOptions": {
     // Emit Configuration
     "noEmit": true,
-
+    "paths": {
+      "@/*": ["src/*"],
+    },
     // Type Checking Configuration
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

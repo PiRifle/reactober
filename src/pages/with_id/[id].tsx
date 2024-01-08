@@ -17,5 +17,5 @@ export const header = html`
 export default function Post() {
   const data = getBackendData<{name: string, age: number}>()
   const params = useParams()
-  return <h1>Post:  {data.name}</h1>
+  return <h1>Post:  {params.id} Cat Name: {data.name}</h1>
 }

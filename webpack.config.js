@@ -1,12 +1,13 @@
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path")
-const StaticSiteGeneratorPlugin = require("static-site-generator-webpack-plugin")
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 
 module.exports = {
     mode: "development",
     entry: "./src/main.tsx", // <-- NE
     output: {
-        publicPath: 'dist',
+        publicPath: "/",
         chunkFilename: "js/[name].[chunkhash].js",
         filename: "js/[name].js",
     },
@@ -20,18 +21,16 @@ module.exports = {
                 },
             },
             {
-                test: /\.svg$/, // Ładuje pliki SVG
-                loader: 'svg-inline-loader',
-                generator: {
-                    filename: 'svg/[name][ext]', // Katalog dla czcionek
-                },
-            },
-            {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
                 type: 'asset/resource',
                 generator: {
                     filename: 'fonts/[name][ext]', // Katalog dla czcionek
                 },
+            },
+            {
+                test: /\.svg$/i,
+                issuer: /\.[jt]sx?$/,
+                use: ['@svgr/webpack', 'url-loader'],
             },
             {
                 test: /\.css$/i,
@@ -49,14 +48,13 @@ module.exports = {
     resolve: {
         modules: [__dirname, "src", "node_modules"],
         extensions: ["*", ".js", ".jsx", ".tsx", ".ts"],
+        // @ts-ignore
+        plugins: [new TsconfigPathsPlugin()]
     },
-
+    plugins: [new HtmlWebpackPlugin({template:"./src/index.html" })],
     devServer: {
-        historyApiFallback: {
-            index: 'index.html'
-        },
-        static: path.join(__dirname, 'hosting'),
-
+        historyApiFallback: true,
+        // static: path.join(__dirname, 'hosting'),
         compress: true,
         port: 9000
     }

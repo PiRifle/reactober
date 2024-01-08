@@ -21,7 +21,7 @@ export async function main() {
     Object.entries(mapped).forEach(([relPath, data])=>createFileWithFolders(join(themeExportPath, "pages", relPath.replace("[", 'PATHPARAM__').replace("]", '__')), data));
     
     
-    await new Promise((res, rej)=>webpack({...config as any, ...{output: {path: join(resolve(themeExportPath), "assets"), chunkFilename: "js/[name].[chunkhash].js", filename: "js/[name].js", publicPath: "/themes/base/assets/"}}, mode: "production"}, (error, stats)=>{
+    await new Promise((res, rej)=>webpack({...config as any, ...{output: {path: join(resolve(themeExportPath), "assets"), chunkFilename: "js/[name].[chunkhash].js", filename: "js/[name].js", publicPath: "/themes/base/assets/"}}, plugins: [], mode: "production"}, (error, stats)=>{
         const message = `+++\nBuild successful!\nTime: ${stats.endTime - stats.startTime} ms\nHash: ${stats.hash}\nVersion: ${webpack.version}\n${stats.toString()}`;
         console.log(message);
         res(true)
